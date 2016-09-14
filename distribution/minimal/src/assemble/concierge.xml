@@ -1,0 +1,120 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+	<id>concierge</id>
+
+	<formats>
+		<format>dir</format>
+		<format>zip</format>
+	</formats>
+
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<fileSets>
+		<!-- include base folder structure and concierge runtime -->
+		<fileSet>
+			<directory>${project.basedir}/distro</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+
+		<!-- include eclipse smarthome modules -->
+		<fileSet>
+			<directory>${project.build.directory}/org.eclipse.smarthome/plugins</directory>
+			<outputDirectory>runtime/concierge/system/org.eclipse.smarthome/</outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+
+			<!-- for smaller zip file, exclude all source packages. Also exclude not 
+				runnable .model modules -->
+			<excludes>
+				<exclude>*.source_*</exclude>
+				<exclude>org.eclipse.smarthome.model.*.jar</exclude>
+			</excludes>
+		</fileSet>
+
+		<!-- include 3rd party libs -->
+		<fileSet>
+			<directory>${project.build.directory}/platform/plugins/</directory>
+			<outputDirectory>runtime/concierge/system/</outputDirectory>
+
+			<includes>
+				<include>org.eclipse.osgi.services_3.4.0*</include>
+
+				<!-- Logging -->
+				<include>org.slf4j*_*</include>
+				<include>ch.qos.logback*_*</include>
+
+				<!-- Servlet -->
+				<include>javax.servlet_3.1*</include>
+
+				<!-- Apache commons -->
+				<include>org.apache.commons.*_*</include>
+
+				<!-- Apache HTTP client -->
+				<include>org.apache.httpcomponents.*_*</include>
+
+				<!-- Common libs -->
+				<include>com.google.*_*</include>
+				<include>com.ibm.icu.base*_*</include>
+				<include>org.antlr.runtime*_*</include>
+
+				<!-- Apache Felix libs -->
+				<include>org.apache.felix.fileinstall*</include>
+				<include>org.apache.felix.configadmin*</include>
+				<include>org.apache.felix.scr*</include>
+				<include>org.apache.felix.eventadmin*</include>
+				<include>org.apache.felix.webconsole-4.2*</include>
+
+				<!-- Apache GoGo console -->
+				<include>org.apache.felix.gogo.*</include>
+
+				<!-- Equinox http servlet, required by jetty -->
+				<include>org.eclipse.equinox.http.servlet_*</include>
+
+				<!-- Jersey -->
+				<include>jersey-min-*</include>
+				<include>provider-gson-*</include>
+				<include>publisher-*</include>
+
+				<!-- MapDB -->
+				<include>mapdb-*</include>
+				
+				<!-- JmDNS -->
+				<include>jmdns-*</include>
+
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${project.build.directory}/platform/plugins/</directory>
+			<outputDirectory>runtime/concierge/system/org.eclipse.jetty</outputDirectory>
+			<includes>
+
+				<!-- Jetty server libs -->
+				<include>jetty-util-*</include>
+				<include>jetty-io-*</include>
+				<include>jetty-http-*</include>
+				<include>jetty-server-*</include>
+				<include>jetty-rewrite-*</include>
+				<include>jetty-continuation-*</include>
+				<include>jetty-security-*</include>
+				<include>jetty-servlet-*</include>
+				<include>jetty-httpservice-*</include>
+				<include>jetty-xml-*</include>
+				<include>jetty-webapp-*</include>
+				<include>jetty-deploy-*</include>
+				<include>jetty-osgi-boot-*</include>
+
+				<!-- Jetty client -->
+				<include>jetty-client-*</include>
+
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>

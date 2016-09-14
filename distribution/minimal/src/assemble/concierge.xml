@@ -13,7 +13,7 @@
 	<includeBaseDirectory>false</includeBaseDirectory>
 
 	<fileSets>
-		<!-- include base folder structure and concierge runtime -->
+		<!-- include base folder structure and scripts -->
 		<fileSet>
 			<directory>${project.basedir}/distro</directory>
 			<outputDirectory>.</outputDirectory>
@@ -21,6 +21,21 @@
 				<include>**/*</include>
 			</includes>
 		</fileSet>
+
+		<!-- include concierge -->
+		<fileSet>
+			<directory>${project.build.directory}/concierge/concierge-incubation-5.0.0/</directory>
+			<outputDirectory>runtime/concierge</outputDirectory>
+			<includes>
+				<include>bundles/*.jar</include>
+				<include>framework/*.jar</include>
+				<include>*.html</include>
+			</includes>
+			<excludes>
+				<exclude>framework/*-nodebug.jar</exclude>
+			</excludes>
+		</fileSet>
+
 
 		<!-- include eclipse smarthome modules -->
 		<fileSet>
@@ -84,7 +99,7 @@
 
 				<!-- MapDB -->
 				<include>mapdb-*</include>
-				
+
 				<!-- JmDNS -->
 				<include>jmdns-*</include>
 
